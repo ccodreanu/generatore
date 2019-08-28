@@ -11,10 +11,25 @@
     <link rel="stylesheet" href="/static/css/style.css" />
   </head>
 
-  <body>
+  <body id="index">
+    <section id="header">
+      <header id="banner">
+        <h1><a href="/">Catalin Codreanu</a></h1>
+      </header>
+      <nav id="menu">
+        <ul>
+          <li><a href="#">Hello</a></li>
+        </ul>
+      </nav>
+    </section>
     <div id="content">
     {% block content %}
     {% endblock %}
     </div>
+    <footer>
+      <address id="about">
+        &copy; 2019 Catalin Codreanu
+      </address>
+    </footer>
   </body>
 </html>

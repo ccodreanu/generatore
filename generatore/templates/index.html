@@ -4,7 +4,10 @@
 <ol id="post-list">
     {% for post in posts %}
     <li>
-        <article class="entry">
+        <article class="hentry">
+            <div class="post-info">
+                {{ post.metadata.date.strftime('%Y-%m-%d') }}
+            </div>
             <header>
                 <h2 class="index-entry-title"><a href="posts/{{ post.document_url }}">{{ post.metadata.title }}</a></h2>
             </header>

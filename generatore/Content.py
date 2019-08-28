@@ -1,6 +1,8 @@
 import re
 import markdown
 
+from datetime import datetime
+
 from generatore.Utils import slug_creator
 
 class Content:
@@ -23,3 +25,4 @@ class Content:
 
         self.slug = slug_creator(self.metadata['title'])
         self.document_url = self.slug + '.html'
+        self.metadata['date'] = datetime.strptime(self.metadata['date'], '%Y-%m-%d %H:%M:%S')

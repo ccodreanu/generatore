@@ -2,10 +2,13 @@
 
 {% block content %}
 <div id="post">
-    <header class="entry-title">
-        <h1>{{ content.metadata.title }}</h1>
+    <header>
+        <h2 class="entry-title">{{ content.metadata.title }}</h2>
     </header>
-    <section>
+    <div class="post-info">
+        {{ content.metadata.date.strftime('%Y-%m-%d') }}
+    </div>
+    <section class="entry-content">
         {{ content.body }}
     </section>
 </div>
