@@ -4,7 +4,6 @@ import markdown
 class Content:
     def __init__(self, filename):
         self.__filename = filename
-        self.metadata = {}
 
         self.__parse_content()
 
@@ -15,6 +14,7 @@ class Content:
         
         metadata = parsed_content[1:2][0].split(sep='\n')[1:-1]
         self.body = markdown.markdown(parsed_content[2:][0])
-
+        
+        self.metadata = {}
         for m in metadata:
             self.metadata[m.split(sep=': ')[0]] = m.split(sep=': ')[1]
