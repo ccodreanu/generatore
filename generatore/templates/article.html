@@ -3,13 +3,13 @@
 {% block content %}
 <div id="post">
     <header>
-        <h2 class="entry-title">{{ content.metadata.title }}</h2>
+        <h2 class="entry-title">{{ title }}</h2>
     </header>
     <div class="post-info">
-        {{ content.metadata.date.strftime('%Y-%m-%d') }}
+        {{ date.strftime('%Y-%m-%d') }}
     </div>
     <section class="entry-content">
-        {{ content.body }}
+        {{ content }}
     </section>
 </div>
 {% endblock %}

@@ -28,9 +28,13 @@ class SiteBuilder:
         
         # sort for sitemap
         self.posts.sort(key=lambda post: post.metadata['date'], reverse=True)
+        
+        [post.write(self.pages) for post in self.posts]
+        [page.write(self.pages) for page in self.pages]
 
         self.__generate_index__()
 
+        # Copy over static files
         copy_tree(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates', 'static'), self.output_static_dir)
 
     def __create_site_structure__(self):
@@ -45,7 +49,8 @@ class SiteBuilder:
         for file in os.listdir(content_path):
             if file.endswith('.md'):
                 path_to_post = os.path.join(content_path, file)
-                contents.append(ArticleCreator(path_to_post, output_dir, self.pages).article)
+                content = ArticleCreator(path_to_post, output_dir)
+                contents.append(content)
 
         return contents
 
