@@ -1,5 +1,6 @@
 import os
 
+from distutils.dir_util import copy_tree
 from jinja2 import Environment, FileSystemLoader
 
 from generatore.ArticleCreator import ArticleCreator
@@ -10,6 +11,8 @@ class SiteBuilder:
         self.output_dir = os.path.join(os.getcwd(), output_dir)
         self.posts_output_dir = os.path.join(self.output_dir, 'posts')
         self.pages_output_dir = os.path.join(output_dir, 'pages')
+
+        self.output_static_dir = os.path.join(self.output_dir, 'static')
 
         self.__create_site_structure__()
 
@@ -25,6 +28,8 @@ class SiteBuilder:
         self.pages.sort(key=lambda post: post.metadata['date'], reverse=True)
 
         self.__generate_index__()
+
+        copy_tree(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates', 'static'), self.output_static_dir)
 
     def __create_site_structure__(self):
         if not os.path.exists(self.posts_output_dir):
