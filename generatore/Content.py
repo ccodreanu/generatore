@@ -26,3 +26,8 @@ class Content:
         self.slug = slug_creator(self.metadata['title'])
         self.document_url = self.slug + '.html'
         self.metadata['date'] = datetime.strptime(self.metadata['date'], '%Y-%m-%d %H:%M:%S')
+
+        try:
+            self.metadata['tags'] = self.metadata['tags'].split(', ')
+        except KeyError:
+            pass

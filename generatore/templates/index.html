@@ -11,6 +11,11 @@
             <header>
                 <h2 class="index-entry-title"><a href="/posts/{{ post.document_url }}">{{ post.metadata.title }}</a></h2>
             </header>
+            <div class="tags">
+                {% for tag in post.metadata.tags %}
+                #{{ tag }}
+                {% endfor %}
+            </div>
         </article>
     </li>
     {% endfor %}
