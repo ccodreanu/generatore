@@ -1,5 +1,4 @@
-from generatore.ArticleCreator import ArticleCreator
-from jinja2 import Environment, FileSystemLoader
+from generatore.SiteBuilder import SiteBuilder
 
 filename = 'content/posts/Running-Wireshark-on-remote-hosts.md'
 
@@ -15,4 +14,8 @@ filename = 'content/posts/Running-Wireshark-on-remote-hosts.md'
 # output = template.render(content=c)
 # print(output)
 
-g = ArticleCreator(filename)
+# g = ArticleCreator(filename)
+
+s = SiteBuilder()
+
+s.build_site()
