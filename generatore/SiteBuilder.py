@@ -10,26 +10,15 @@ class SiteBuilder:
         self.__create_site_structure__()
 
     def build_site(self):
-        # build all posts first
-        path_to_posts = os.path.join(os.getcwd(), self.content_dir, 'posts')
-        path_to_pages = os.path.join(os.getcwd(), self.content_dir, 'pages')
+        md_posts_path = os.path.join(os.getcwd(), self.content_dir, 'posts')
+        md_pages_path = os.path.join(os.getcwd(), self.content_dir, 'pages')
 
-        posts = []
-        for file in os.listdir(path_to_posts):
-            if file.endswith('.md'):
-                path_to_post = os.path.join(path_to_posts, file)
-                posts.append(ArticleCreator(path_to_post, self.posts_output_dir))
-
-        # now pages
-        pages = []
-        for file in os.listdir(path_to_pages):
-            if file.endswith('.md'):
-                path_to_page = os.path.join(path_to_pages, file)
-                pages.append(ArticleCreator(path_to_page, self.pages_output_dir))
+        self.posts = self.__generate_output__(md_posts_path)
+        self.pages = self.__generate_output__(md_pages_path)
         
         # sort for sitemap
-        posts.sort(key=lambda post: post.article.metadata['date'], reverse=True)
-        pages.sort(key=lambda post: post.article.metadata['date'], reverse=True)
+        self.posts.sort(key=lambda post: post.article.metadata['date'], reverse=True)
+        self.pages.sort(key=lambda post: post.article.metadata['date'], reverse=True)
 
     def __create_site_structure__(self):
         if not os.path.exists(self.posts_output_dir):
@@ -37,3 +26,12 @@ class SiteBuilder:
 
         if not os.path.exists(self.pages_output_dir):
             os.makedirs(self.pages_output_dir)
+
+    def __generate_output__(self, content_path):
+        contents = []
+        for file in os.listdir(content_path):
+            if file.endswith('.md'):
+                path_to_post = os.path.join(content_path, file)
+                contents.append(ArticleCreator(path_to_post, self.posts_output_dir))
+
+        return contents
