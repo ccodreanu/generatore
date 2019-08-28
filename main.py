@@ -1,6 +1,8 @@
 import markdown
 import re
 
+from generatore.Content import Content
+
 def get_content_metadata(file):
     content = ''
     with open(filename, 'r') as file_with_content:
@@ -11,7 +13,12 @@ def get_content_metadata(file):
 
 filename = 'content/posts/Running-Wireshark-on-remote-hosts.md'
 
-print(get_content_metadata(filename)[1])
+# print(get_content_metadata(filename)[1])
 
 # markdown.markdownFromFile(input=filename)
-print(markdown.markdown(get_content_metadata(filename)[1]))
+# print(markdown.markdown(get_content_metadata(filename)[1]))
+
+c = Content(filename)
+
+print(c.body)
+print(c.metadata)
