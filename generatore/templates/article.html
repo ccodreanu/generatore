@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="post">
+    <header class="entry-title">
+        <h1>{{ content.metadata.title }}</h1>
+    </header>
+    <section>
+        {{ content.body }}
+    </section>
+</div>
+{% endblock %}
