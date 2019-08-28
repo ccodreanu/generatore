@@ -25,9 +25,18 @@ class Content:
 
         self.slug = slug_creator(self.metadata['title'])
         self.document_url = self.slug + '.html'
-        self.metadata['date'] = datetime.strptime(self.metadata['date'], '%Y-%m-%d %H:%M:%S')
+
+        try:
+            self.metadata['date'] = datetime.strptime(self.metadata['date'], '%Y-%m-%d %H:%M:%S')
+        except KeyError:
+            raise ValidationError(self.__filename + ': Date is missing.')
 
         try:
             self.metadata['tags'] = self.metadata['tags'].split(', ')
         except KeyError:
             pass
+
+class ValidationError(Exception):
+    def __init__(self, message):
+
+        super().__init__(message)
