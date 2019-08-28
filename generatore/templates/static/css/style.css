@@ -81,8 +81,6 @@ audio,
 video {
     border: 0;
     font-size: 100%;
-    font-family: Livvic, Helvetica, Arial, sans-serif;
-    font-weight: 500;
     vertical-align: baseline;
     margin: 0;
     padding: 0;
@@ -105,6 +103,8 @@ section {
 
 body {
     color: #111;
+    font-family: Livvic, Helvetica, Arial, sans-serif;
+    font-weight: 500;
 }
 
 ol,
@@ -133,8 +133,15 @@ a {
     color: #F012BE;
 }
 
-code {
+code, .codehilite {
     font-family: consolas, monospace;
+}
+
+.codehilite {
+    border: 1px solid #eee;
+    padding: 1rem;
+    margin: 1em 0;
+    overflow: auto;
 }
 
 #header {
@@ -181,7 +188,7 @@ code {
     line-height: 1.8;
 }
 
-.entry-content p {
+.entry-content p, .codehilite {
     margin-bottom: 1rem;
 }
 

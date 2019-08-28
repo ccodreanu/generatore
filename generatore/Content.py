@@ -17,7 +17,7 @@ class Content:
             parsed_content = re.split(r'---', content, flags=re.MULTILINE)
         
         metadata = parsed_content[1:2][0].split(sep='\n')[1:-1]
-        self.body = markdown.markdown(text=parsed_content[2:][0], output_format='html5')
+        self.body = markdown.markdown(text=parsed_content[2:][0], output_format='html5', extensions=['codehilite', 'fenced_code'])
         
         self.metadata = {}
         for m in metadata:
