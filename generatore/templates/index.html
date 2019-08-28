@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ol id="post-list">
+    {% for post in posts %}
+    <li>
+        <article class="entry">
+            <header>
+                <h2><a href="posts/{{ post.document_url }}">{{ post.metadata.title }}</a></h2>
+            </header>
+        </article>
+    </li>
+    {% endfor %}
+</ol>
+{% endblock %}
