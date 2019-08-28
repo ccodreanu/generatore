@@ -1,6 +1,8 @@
 import re
 import markdown
 
+from generatore.Utils import slug_creator
+
 class Content:
     def __init__(self, filename):
         self.__filename = filename
@@ -18,3 +20,6 @@ class Content:
         self.metadata = {}
         for m in metadata:
             self.metadata[m.split(sep=': ')[0]] = m.split(sep=': ')[1]
+
+        self.slug = slug_creator(self.metadata['title'])
+        self.document_url = self.slug + '.html'

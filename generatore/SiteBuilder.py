@@ -1,24 +1,30 @@
 import os
+
+from jinja2 import Environment, FileSystemLoader
+
 from generatore.ArticleCreator import ArticleCreator
 
 class SiteBuilder:
     def __init__(self, content_dir="content", output_dir="output"):
-        self.content_dir = content_dir
-        self.posts_output_dir = os.path.join(output_dir, 'posts/')
-        self.pages_output_dir = os.path.join(output_dir, 'pages/')
+        self.content_dir = os.path.join(os.getcwd(), content_dir)
+        self.output_dir = os.path.join(os.getcwd(), output_dir)
+        self.posts_output_dir = os.path.join(self.output_dir, 'posts')
+        self.pages_output_dir = os.path.join(output_dir, 'pages')
 
         self.__create_site_structure__()
 
     def build_site(self):
-        md_posts_path = os.path.join(os.getcwd(), self.content_dir, 'posts')
-        md_pages_path = os.path.join(os.getcwd(), self.content_dir, 'pages')
+        posts_content_path = os.path.join(os.getcwd(), self.content_dir, 'posts')
+        pages_content_path = os.path.join(os.getcwd(), self.content_dir, 'pages')
 
-        self.posts = self.__generate_output__(md_posts_path)
-        self.pages = self.__generate_output__(md_pages_path)
+        self.posts = self.__generate_content__(posts_content_path, self.posts_output_dir)
+        self.pages = self.__generate_content__(pages_content_path, self.pages_output_dir)
         
         # sort for sitemap
-        self.posts.sort(key=lambda post: post.article.metadata['date'], reverse=True)
-        self.pages.sort(key=lambda post: post.article.metadata['date'], reverse=True)
+        self.posts.sort(key=lambda post: post.metadata['date'], reverse=True)
+        self.pages.sort(key=lambda post: post.metadata['date'], reverse=True)
+
+        self.__generate_index__()
 
     def __create_site_structure__(self):
         if not os.path.exists(self.posts_output_dir):
@@ -27,11 +33,21 @@ class SiteBuilder:
         if not os.path.exists(self.pages_output_dir):
             os.makedirs(self.pages_output_dir)
 
-    def __generate_output__(self, content_path):
+    def __generate_content__(self, content_path, output_dir):
         contents = []
         for file in os.listdir(content_path):
             if file.endswith('.md'):
                 path_to_post = os.path.join(content_path, file)
-                contents.append(ArticleCreator(path_to_post, self.posts_output_dir))
+                contents.append(ArticleCreator(path_to_post, output_dir).article)
 
         return contents
+
+    def __generate_index__(self):
+        file_loader = FileSystemLoader(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates'))
+        env = Environment(loader=file_loader)
+
+        template = env.get_template('index.html')
+        output = template.render(title='Catalin Codreanu', posts=self.posts)
+
+        with open(os.path.join(self.output_dir, 'index.html'), 'w') as writer:
+            writer.write(output)
