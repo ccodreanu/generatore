@@ -18,7 +18,9 @@
       </header>
       <nav id="menu">
         <ul>
-          <li><a href="#">Hello</a></li>
+          {% for page in pages %}
+            <li><a href="/pages/{{ page.document_url }}">{{ page.metadata.title }}</a></li>
+          {% endfor %}
         </ul>
       </nav>
     </section>

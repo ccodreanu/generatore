@@ -20,12 +20,14 @@ class SiteBuilder:
         posts_content_path = os.path.join(os.getcwd(), self.content_dir, 'posts')
         pages_content_path = os.path.join(os.getcwd(), self.content_dir, 'pages')
 
-        self.posts = self.__generate_content__(posts_content_path, self.posts_output_dir)
+        self.pages = []
         self.pages = self.__generate_content__(pages_content_path, self.pages_output_dir)
+        self.pages.sort(key=lambda post: post.metadata['date'], reverse=True)
+
+        self.posts = self.__generate_content__(posts_content_path, self.posts_output_dir)
         
         # sort for sitemap
         self.posts.sort(key=lambda post: post.metadata['date'], reverse=True)
-        self.pages.sort(key=lambda post: post.metadata['date'], reverse=True)
 
         self.__generate_index__()
 
@@ -43,7 +45,7 @@ class SiteBuilder:
         for file in os.listdir(content_path):
             if file.endswith('.md'):
                 path_to_post = os.path.join(content_path, file)
-                contents.append(ArticleCreator(path_to_post, output_dir).article)
+                contents.append(ArticleCreator(path_to_post, output_dir, self.pages).article)
 
         return contents
 
@@ -52,7 +54,7 @@ class SiteBuilder:
         env = Environment(loader=file_loader)
 
         template = env.get_template('index.html')
-        output = template.render(title='Catalin Codreanu', posts=self.posts)
+        output = template.render(title='Catalin Codreanu', posts=self.posts, pages=self.pages)
 
         with open(os.path.join(self.output_dir, 'index.html'), 'w') as writer:
             writer.write(output)
