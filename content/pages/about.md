@@ -7,3 +7,5 @@ Hey! You can call me Cata. I'm a DevOps Engineer currently working with Docker, 
 Originally I'm from Romania, but lived for a lot of years in Italy. Currently I'm living in The Netherlands.
 
 You can get in touch with me on social media, usually @picofish.
+
+This site is static and its pages are all hosted on AWS S3. The tool behind this site is [Generatore](https://github.com/picofish/generatore). _Generatore_ was born because other Python based site generators are too complicated, overengineered or have a much too rigid layout.
