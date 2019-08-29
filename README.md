@@ -4,4 +4,14 @@ This is a static website generator written in Python based on Markdown and Jinja
 
 Install with `pip3 install -r requirements.txt`.
 
-Run with `python3 main.py` and deploy to S3.
+Usage:
+
+```
+usage: main.py <command>
+
+Generatore creates static websites.
+
+Available commands:
+     build      build the site inside the output directory
+     serve      generate content and start a webserver
+```
