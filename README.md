@@ -12,6 +12,7 @@ usage: main.py <command>
 Generatore creates static websites.
 
 Available commands:
-     build      build the site inside the output directory
-     serve      generate content and start a webserver
+        build           build the site inside the output directory
+        serve           generate content and start a webserver
+        new "..."       create a new post with metadata
 ```
