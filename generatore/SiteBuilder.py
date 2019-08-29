@@ -4,27 +4,29 @@ from distutils.dir_util import copy_tree
 from jinja2 import Environment, FileSystemLoader
 
 from generatore.ArticleCreator import ArticleCreator
+import config
 
 class SiteBuilder:
     def __init__(self, content_dir="content", output_dir="output"):
         self.content_dir = os.path.join(os.getcwd(), content_dir)
         self.output_dir = os.path.join(os.getcwd(), output_dir)
-        self.posts_output_dir = os.path.join(self.output_dir, 'posts')
-        self.pages_output_dir = os.path.join(output_dir, 'pages')
 
-        self.output_static_dir = os.path.join(self.output_dir, 'static')
+        self.posts_content_dir = os.path.join(self.content_dir, 'posts')
+        self.pages_content_dir = os.path.join(self.content_dir, 'pages')
+
+        self.posts_output_dir = os.path.join(self.output_dir, 'posts')
+        self.pages_output_dir = os.path.join(self.output_dir, 'pages')
+
+        self.static_output_dir = os.path.join(self.output_dir, 'static')
 
         self.__create_site_structure__()
 
     def build_site(self):
-        posts_content_path = os.path.join(os.getcwd(), self.content_dir, 'posts')
-        pages_content_path = os.path.join(os.getcwd(), self.content_dir, 'pages')
-
         self.pages = []
-        self.pages = self.__generate_content__(pages_content_path, self.pages_output_dir)
+        self.pages = self.__generate_content__(self.pages_content_dir, self.pages_output_dir)
         self.pages.sort(key=lambda post: post.metadata['date'], reverse=True)
 
-        self.posts = self.__generate_content__(posts_content_path, self.posts_output_dir)
+        self.posts = self.__generate_content__(self.posts_content_dir, self.posts_output_dir)
         
         # sort for sitemap
         self.posts.sort(key=lambda post: post.metadata['date'], reverse=True)
@@ -35,7 +37,7 @@ class SiteBuilder:
         self.__generate_index__()
 
         # Copy over static files
-        copy_tree(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates', 'static'), self.output_static_dir)
+        copy_tree(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates', 'static'), self.static_output_dir)
 
     def __create_site_structure__(self):
         if not os.path.exists(self.posts_output_dir):
@@ -59,7 +61,7 @@ class SiteBuilder:
         env = Environment(loader=file_loader)
 
         template = env.get_template('index.html')
-        output = template.render(title='Catalin Codreanu', posts=self.posts, pages=self.pages)
+        output = template.render(site_name=config.config['site_name'], posts=self.posts, pages=self.pages)
 
         with open(os.path.join(self.output_dir, 'index.html'), 'w') as writer:
             writer.write(output)
