@@ -34,8 +34,9 @@ if (len(sys.argv) > 1):
         web_dir = os.path.join(os.path.dirname(__file__), 'output')
         os.chdir(web_dir)
         with socketserver.TCPServer(("", 9999), http.server.SimpleHTTPRequestHandler) as httpd:
-            print("serving at port", 9999)
+            print('Serving at http://localhost:9999')
             httpd.serve_forever()
+
     else:
         usage()
 else:
