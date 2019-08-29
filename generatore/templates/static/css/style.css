@@ -133,11 +133,11 @@ a {
     color: #F012BE;
 }
 
-code, .codehilite {
+code {
     font-family: consolas, monospace;
 }
 
-.codehilite {
+pre {
     border: 1px solid #eee;
     padding: 1rem;
     margin: 1em 0;
@@ -188,7 +188,7 @@ code, .codehilite {
     line-height: 1.8;
 }
 
-.entry-content p, .codehilite {
+.entry-content p {
     margin-bottom: 1rem;
 }
 
