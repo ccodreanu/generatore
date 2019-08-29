@@ -150,21 +150,25 @@ pre {
     padding-bottom: 4em;
     height: 2em;
 }
+
 #banner {
     width: 50%;
     float: left;
 }
+
 #banner a {
     font-size: 1.5rem;
     font-weight: 700;
     color: #111;
     text-decoration: none;
 }
+
 #menu {
     width: 50%;
     float: right;
     text-align: right;
 }
+
 #index {
     padding: 40px 0;
 }
@@ -221,6 +225,7 @@ pre {
     padding: 2.5em 0;
     border-bottom: 1px dashed #eee;
 }
+
 #post-list li:first-child {
     padding-top: 0;
 }
@@ -238,21 +243,27 @@ pre {
 }
 
 @media (max-width: 50em) {
-    #content, #header {
+
+    #content,
+    #header {
         width: 100%;
         margin: 0;
     }
-    #content > * {
+
+    #content>* {
         padding: 0 1rem;
     }
+
     #banner {
         width: 100% !important;
         text-align: center;
     }
+
     #menu {
         width: 100% !important;
         text-align: center;
     }
+
     .entry-title {
         font-size: 2rem;
     }
