@@ -2,12 +2,13 @@ import os
 
 from jinja2 import Environment, FileSystemLoader
 
-from config import config
 from generatore.Content import Content
 
 class ArticleCreator(Content):
-    def __init__(self, filename, destination):
+    def __init__(self, filename, destination, config):
         super().__init__(filename)
+
+        self.config = config
 
         self.destination = destination
 
@@ -18,7 +19,7 @@ class ArticleCreator(Content):
         env = Environment(loader=file_loader)
 
         template = env.get_template('article.html')
-        output = template.render(site_name=config['site_name'], title=self.metadata['title'], date=self.metadata['date'], content=self.body, pages=pages)
+        output = template.render(site_name=self.config['site_name'], title=self.metadata['title'], date=self.metadata['date'], content=self.body, pages=pages)
         
         with open(os.path.join(output_dir, self.document_url), 'w') as writer:
             writer.write(output)
