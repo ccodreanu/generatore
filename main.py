@@ -26,10 +26,10 @@ def usage():
     print('\t{:10}\t{}'.format('build', 'build the site inside the output directory'))
     print('\t{:10}\t{}'.format('listen', 'auto-build the site inside the output directory'))
     print('\t{:10}\t{}'.format('serve', 'generate content and start a webserver'))
-    print('\t{:10}\t{}'.format('new "..."', 'create a new post with metadata'))
+    print('\t{:10}\t{}'.format('post "..."', 'create a new post with metadata'))
 
 if (len(sys.argv) > 1):
-    if (sys.argv[1] == 'new'):
+    if (sys.argv[1] == 'post'):
         try:
             title = sys.argv[2]
 
