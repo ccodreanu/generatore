@@ -14,7 +14,7 @@ from generatore.Utils import slug_creator
 
 site = SiteBuilder()
 
-class MyHandler(FileSystemEventHandler):
+class ContentHandler(FileSystemEventHandler):
     def on_modified(self, event):
         print(f'{event.src_path} has been {event.event_type}')
         site.build_site()
@@ -40,10 +40,10 @@ if (len(sys.argv) > 1):
     elif (sys.argv[1] == 'build'):
         site.build_site()
     elif (sys.argv[1] == 'listen'):
-        event_handler = MyHandler()
+        content_handler = ContentHandler()
         observer = Observer()
-        observer.schedule(event_handler, path=os.path.join(os.path.dirname(__file__), 'content'), recursive=True)
-        observer.schedule(event_handler, path=os.path.join(os.path.dirname(__file__), 'generatore/templates'), recursive=True)
+        observer.schedule(content_handler, path=os.path.join(os.path.dirname(__file__), 'content'), recursive=True)
+        observer.schedule(content_handler, path=os.path.join(os.path.dirname(__file__), 'generatore/templates'), recursive=True)
         observer.start()
 
         print('Listening for changes...')
