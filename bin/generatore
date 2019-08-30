@@ -24,7 +24,7 @@ class ContentHandler(FileSystemEventHandler):
         self.site.build_site()
 
 def usage():
-    print('usage: {} <command>\n'.format(sys.argv[0]))
+    print('usage: generatore <command>\n')
     print('Generatore creates static websites.\n')
     print('Available commands:')
     print('\t{:10}\t{}'.format('create DIR', 'create a new site'))

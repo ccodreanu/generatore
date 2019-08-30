@@ -7,13 +7,14 @@ Install with `pip3 install -r requirements.txt`.
 Usage:
 
 ```
-usage: main.py <command>
+usage: generatore <command>
 
 Generatore creates static websites.
 
 Available commands:
+        create DIR      create a new site
+        post "..."      create a new post with metadata
         build           build the site inside the output directory
         listen          auto-build the site inside the output directory
         serve           generate content and start a webserver
-        post "..."       create a new post with metadata
 ```
