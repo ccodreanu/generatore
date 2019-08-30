@@ -4,12 +4,18 @@ from distutils.dir_util import copy_tree
 from jinja2 import Environment, FileSystemLoader
 
 from generatore.ArticleCreator import ArticleCreator
-import config
 
 class SiteBuilder:
-    def __init__(self, content_dir="content", output_dir="output"):
-        self.content_dir = os.path.join(os.getcwd(), content_dir)
-        self.output_dir = os.path.join(os.getcwd(), output_dir)
+    def __init__(self, config=None, dir=os.getcwd(), content_dir="content", output_dir="output"):
+        if (config == None):
+            self.config = eval(open(os.path.join(dir, 'config'), 'r').read())
+        else:
+            self.config = config
+
+        print(self.config)
+
+        self.content_dir = os.path.join(dir, content_dir)
+        self.output_dir = os.path.join(dir, output_dir)
 
         self.posts_content_dir = os.path.join(self.content_dir, 'posts')
         self.pages_content_dir = os.path.join(self.content_dir, 'pages')
@@ -40,6 +46,12 @@ class SiteBuilder:
         copy_tree(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates', 'static'), self.static_output_dir)
 
     def __create_site_structure__(self):
+        if not os.path.exists(self.posts_content_dir):
+            os.makedirs(self.posts_content_dir)
+
+        if not os.path.exists(self.pages_content_dir):
+            os.makedirs(self.pages_content_dir)
+
         if not os.path.exists(self.posts_output_dir):
             os.makedirs(self.posts_output_dir)
 
@@ -51,7 +63,7 @@ class SiteBuilder:
         for file in os.listdir(content_path):
             if file.endswith('.md'):
                 path_to_post = os.path.join(content_path, file)
-                content = ArticleCreator(path_to_post, output_dir)
+                content = ArticleCreator(path_to_post, output_dir, self.config)
                 contents.append(content)
 
         return contents
@@ -61,7 +73,7 @@ class SiteBuilder:
         env = Environment(loader=file_loader)
 
         template = env.get_template('index.html')
-        output = template.render(site_name=config.config['site_name'], posts=self.posts, pages=self.pages)
+        output = template.render(site_name=self.config['site_name'], posts=self.posts, pages=self.pages)
 
         with open(os.path.join(self.output_dir, 'index.html'), 'w') as writer:
             writer.write(output)
