@@ -2,7 +2,7 @@
 
 This is a static website generator written in Python based on Markdown and Jinja2
 
-Install with `pip3 install -r requirements.txt`.
+Install with `pip3 install -r requirements.txt`, `make` and `pip3 install` on the `whl` that was generated.
 
 Usage:
 
