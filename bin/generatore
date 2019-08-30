@@ -19,7 +19,7 @@ from generatore.Utils import slug_creator
 class ContentHandler(FileSystemEventHandler):
     def __init__(self, site):
         self.site = site
-    def on_modified(self, event, site):
+    def on_modified(self, event):
         print(f'{event.src_path} has been {event.event_type}')
         self.site.build_site()
 
