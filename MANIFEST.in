@@ -1,0 +1,2 @@
+include generatore/templates/*
+include generatore/templates/static/css/*
