@@ -73,7 +73,7 @@ class SiteBuilder:
         env = Environment(loader=file_loader)
 
         template = env.get_template('index.html')
-        output = template.render(site_name=self.config['site_name'], title='Home', posts=self.posts, pages=self.pages)
+        output = template.render(site_name=self.config['site_name'], google_analytics=self.config['google_analytics'], title='Home', posts=self.posts, pages=self.pages)
 
         with open(os.path.join(self.output_dir, 'index.html'), 'w') as writer:
             writer.write(output)

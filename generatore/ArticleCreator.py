@@ -19,7 +19,7 @@ class ArticleCreator(Content):
         env = Environment(loader=file_loader)
 
         template = env.get_template('article.html')
-        output = template.render(site_name=self.config['site_name'], title=self.metadata['title'], date=self.metadata['date'], content=self.body, pages=pages)
+        output = template.render(site_name=self.config['site_name'], google_analytics=self.config['google_analytics'], title=self.metadata['title'], date=self.metadata['date'], content=self.body, pages=pages)
         
         with open(os.path.join(output_dir, self.document_url), 'w') as writer:
             writer.write(output)
