@@ -14,7 +14,9 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
 from generatore.SiteBuilder import SiteBuilder
+from generatore.ArticleBuilder import ArticleBuilder
 from generatore.Utils import slug_creator
+from generatore.ConfigManager import ConfigManager
 
 class ContentHandler(FileSystemEventHandler):
     def __init__(self, site):
@@ -38,14 +40,13 @@ if (len(sys.argv) > 1):
     if (sys.argv[1] == 'create'):
         try:
             title = sys.argv[2]
-            config_path = os.path.join(os.getcwd(), title, 'config')
 
             os.mkdir(title)
 
-            with open(config_path, 'w') as writer:
-                writer.write('{\n\t"site_name": "Your new site"\n}\n')
+            cm = ConfigManager(title)
+            cm.write()
             
-            site = SiteBuilder(open(config_path, 'r').read(), os.path.join(os.getcwd(), title))
+            site = SiteBuilder(dir=title)
         except Exception as e:
             print(e)
             usage()

@@ -3,14 +3,14 @@ import os
 from distutils.dir_util import copy_tree
 from jinja2 import Environment, FileSystemLoader
 
-from generatore.ArticleCreator import ArticleCreator
+from generatore.ArticleBuilder import ArticleBuilder
+from generatore.ConfigManager import ConfigManager
 
 class SiteBuilder:
-    def __init__(self, config=None, dir=os.getcwd(), content_dir="content", output_dir="output"):
-        if (config == None):
-            self.config = eval(open(os.path.join(dir, 'config'), 'r').read())
-        else:
-            self.config = config
+    def __init__(self, dir=os.getcwd(), content_dir="content", output_dir="output"):
+        self.dir = os.path.abspath(dir)
+
+        self.config = ConfigManager(dir).read()
 
         print(self.config)
 
