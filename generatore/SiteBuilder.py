@@ -63,7 +63,7 @@ class SiteBuilder:
         for file in os.listdir(content_path):
             if file.endswith('.md'):
                 path_to_post = os.path.join(content_path, file)
-                content = ArticleCreator(path_to_post, output_dir, self.config)
+                content = ArticleBuilder(path_to_post, output_dir, self.config)
                 contents.append(content)
 
         return contents

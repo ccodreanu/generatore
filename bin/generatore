@@ -55,13 +55,12 @@ if (len(sys.argv) > 1):
         try:
             title = sys.argv[2]
 
-            with open(os.path.join(os.getcwd(), 'content', 'posts', slug_creator(title) + '.md'), 'w+') as writer:
-                writer.write('---\ntitle: {}\ndate: {}\n---\n'.format(title, datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
-        except IndexError:
+            ArticleBuilder.new_skeleton(title)
+        except Exception as e:
+            print(e)
             usage()
     elif (sys.argv[1] == 'build'):
-        site = SiteBuilder()
-        site.build_site()
+        SiteBuilder().build_site()
     elif (sys.argv[1] == 'listen'):
         content_handler = ContentHandler(SiteBuilder())
         observer = Observer()
