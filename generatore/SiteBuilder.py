@@ -107,8 +107,7 @@ class SiteBuilder:
         env = Environment(loader=file_loader)
 
         template = env.get_template('index.html')
-        o = template.render(site_name=self.config['site_name'],
-                            google_analytics=self.config['google_analytics'],
+        o = template.render(config=self.config,
                             title='Home',
                             posts=self.posts,
                             pages=self.pages)

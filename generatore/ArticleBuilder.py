@@ -24,8 +24,7 @@ class ArticleBuilder(Content):
         env = Environment(loader=file_loader)
 
         template = env.get_template('article.html')
-        o = template.render(site_name=self.config['site_name'],
-                            google_analytics=self.config['google_analytics'],
+        o = template.render(config=self.config,
                             title=self.metadata['title'],
                             date=self.metadata['date'],
                             content=self.body,
