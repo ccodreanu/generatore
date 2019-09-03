@@ -14,7 +14,8 @@ class ConfigManager():
 
     def write(self, config=[]):
         default_config = {
-            "site_name": "New site"
+            "site_name": "New site",
+            "site_description": "A fresh new site"
         }
 
         default_config.update(config)
