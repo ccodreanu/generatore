@@ -1,110 +1,25 @@
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-u,
-i,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video {
+:root {
+    --link-color: rgb(0, 84, 180);
+    --new-black-color: #111;
+    --text-in-body: #333;
+}
+
+html, body, div, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, a, abbr, acronym, address, big, cite, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
     border: 0;
     font-size: 100%;
+    font-family: Roboto, Helvetica, Arial, sans-serif;
     vertical-align: baseline;
     margin: 0;
     padding: 0;
     font-size: 18px;
 }
 
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section {
-    display: block
-}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section
 
 body {
     color: #111;
-    font-family: Livvic, Helvetica, Arial, sans-serif;
-    font-weight: 500;
+    
+    font-weight: 400;
 }
 
 ol,
@@ -130,18 +45,7 @@ table {
 }
 
 a {
-    color: #F012BE;
-}
-
-code {
-    font-family: consolas, monospace;
-}
-
-pre {
-    border: 1px solid #eee;
-    padding: 1rem;
-    margin: 1em 0;
-    overflow: auto;
+    color: var(--link-color);
 }
 
 #header {
@@ -158,7 +62,7 @@ pre {
 
 #banner a {
     font-size: 1.5rem;
-    font-weight: 700;
+    font-weight: 900;
     color: #111;
     text-decoration: none;
 }
@@ -190,6 +94,7 @@ pre {
 
 .entry-content {
     line-height: 1.8;
+    color: var(--text-in-body);
 }
 
 .entry-content p {
@@ -197,19 +102,20 @@ pre {
 }
 
 .entry-title {
-    font-weight: 700;
+    font-weight: 900;
     font-size: 3rem;
     color: #111;
+    letter-spacing: -1px;
 }
 
-.index-entry-title>a {
+.index-entry-title > a {
     font-size: 1.5rem;
-    font-weight: 700;
+    color: var(--new-black-color);
+    font-weight: 900;
     text-decoration: none;
-    color: #111;
 }
 
-.highlight {
+.codehilite {
     font-family: consolas, monospace;
     border: 1px solid #eee;
     padding: 1rem;
@@ -217,8 +123,12 @@ pre {
     overflow: auto;
 }
 
-.highlight>*>* {
+.codehilite > code {
     font-family: consolas, monospace;
+}
+
+.entry-content p > code {
+    background: rgb(243, 243, 243);
 }
 
 #post-list li {
