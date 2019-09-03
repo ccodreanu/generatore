@@ -5,17 +5,16 @@
     {% for post in posts %}
     <li>
         <article class="hentry">
-            <div class="post-info">
-                {{ post.metadata.date.strftime('%Y-%m-%d') }}
-            </div>
             <header>
-                <h2 class="index-entry-title"><a href="/posts/{{ post.document_url }}">{{ post.metadata.title }}</a></h2>
+                <h2 class="index-entry-title"><a href="/posts/{{ post.document_url }}">{{ post.metadata.title }}</a></h2><span class="post-info"> &mdash; {{ post.metadata.date.strftime('%Y-%m-%d') }}</span>
             </header>
+            {% if post.metadata.tags %}
             <div class="tags">
                 {% for tag in post.metadata.tags %}
                 #{{ tag }}
                 {% endfor %}
             </div>
+            {% endif %}
         </article>
     </li>
     {% endfor %}
