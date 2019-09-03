@@ -3,86 +3,52 @@
 import sys
 import os
 
-sys.path.append(os.path.abspath('.'))
-
 import http.server
 import socketserver
 import datetime
 import time
-
-from watchdog.observers import Observer
-from watchdog.events import FileSystemEventHandler
+import argparse
 
 from generatore.SiteBuilder import SiteBuilder
 from generatore.ArticleBuilder import ArticleBuilder
-from generatore.Utils import slug_creator
 from generatore.ConfigManager import ConfigManager
 
-class ContentHandler(FileSystemEventHandler):
-    def __init__(self, site):
-        self.site = site
-    def on_modified(self, event):
-        print(f'{event.src_path} has been {event.event_type}')
-        self.site.build_site()
+parser = argparse.ArgumentParser()
+parser.add_argument("--build", help="build the site in the output directory",
+                    action="store_true")
+parser.add_argument("--listen",
+                    help="auto-build the site inside the output directory",
+                    action="store_true")
+parser.add_argument("--serve", help="generate content and start a webserver",
+                    action="store_true")
+parser.add_argument("--create", help="create a new site in DIR", metavar="DIR")
+parser.add_argument("--post", help="create a new post with metadata",
+                    metavar="'Post title'")
+args = parser.parse_args()
 
-def usage():
-    print('usage: generatore <command>\n')
-    print('Generatore creates static websites.\n')
-    print('Available commands:')
-    print('\t{:10}\t{}'.format('create DIR', 'create a new site'))
-    print('\t{:10}\t{}'.format('post "..."', 'create a new post with metadata'))
-    print('\t{:10}\t{}'.format('build', 'build the site inside the output directory'))
-    print('\t{:10}\t{}'.format('listen', 'auto-build the site inside the output directory'))
-    print('\t{:10}\t{}'.format('serve', 'generate content and start a webserver'))
+if (args.build):
+    SiteBuilder().build_site()
+elif (args.listen):
+    SiteBuilder().auto_build_site()
+elif (args.serve):
+    web_dir = os.path.join(os.getcwd(), 'output')
 
-if (len(sys.argv) > 1):
-    site = object()
-    if (sys.argv[1] == 'create'):
-        try:
-            title = sys.argv[2]
+    os.chdir(web_dir)
 
-            os.mkdir(title)
+    with socketserver.TCPServer(("", 9999),
+                                http.server.SimpleHTTPRequestHandler) as httpd:
+        print('Serving at http://localhost:9999')
+        httpd.serve_forever()
+elif (args.create):
+    try:
+        os.mkdir(args.create)
+    except Exception as e:
+        print(e)
+        exit(1)
 
-            cm = ConfigManager(title)
-            cm.write()
-            
-            site = SiteBuilder(dir=title)
-        except Exception as e:
-            print(e)
-            usage()
-            print('\nDirectory not empty.')
-    elif (sys.argv[1] == 'post'):
-        try:
-            title = sys.argv[2]
+    cm = ConfigManager(args.create)
+    cm.write()
 
-            ArticleBuilder.new_skeleton(title)
-        except Exception as e:
-            print(e)
-            usage()
-    elif (sys.argv[1] == 'build'):
-        SiteBuilder().build_site()
-    elif (sys.argv[1] == 'listen'):
-        content_handler = ContentHandler(SiteBuilder())
-        observer = Observer()
-        observer.schedule(content_handler, path=os.path.join(os.getcwd(), 'content'), recursive=True)
-        observer.start()
-
-        print('Listening for changes...')
-
-        try:
-            while True:
-                time.sleep(1)
-        except KeyboardInterrupt:
-            observer.stop()
-        observer.join()
-    elif (sys.argv[1] == 'serve'):
-        web_dir = os.path.join(os.getcwd(), 'output')
-        os.chdir(web_dir)
-        with socketserver.TCPServer(("", 9999), http.server.SimpleHTTPRequestHandler) as httpd:
-            print('Serving at http://localhost:9999')
-            httpd.serve_forever()
-
-    else:
-        usage()
-else:
-    usage()
+    site = SiteBuilder(dir=args.create)
+elif (args.post):
+    ArticleBuilder.new_skeleton(args.post)
