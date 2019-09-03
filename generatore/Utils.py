@@ -1,5 +1,6 @@
 import re
 
+
 def slug_creator(weird_string):
     """
     This creates slugs in the ASCII character space.
