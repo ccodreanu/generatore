@@ -27,7 +27,7 @@ parser.add_argument("--post", help="create a new post with metadata",
 args = parser.parse_args()
 
 if (args.build):
-    SiteBuilder().build_site()
+    print(SiteBuilder().build_site())
 elif (args.listen):
     SiteBuilder().auto_build_site()
 elif (args.serve):
