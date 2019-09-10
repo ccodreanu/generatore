@@ -51,6 +51,9 @@ class SiteBuilder:
         # sort for sitemap
         self.posts.sort(key=lambda post: post.metadata['date'], reverse=True)
 
+        for file in os.listdir(self.posts_output_dir):
+            os.unlink(os.path.join(self.posts_output_dir, file))
+
         [post.write(self.pages) for post in self.posts]
         [page.write(self.pages) for page in self.pages]
 
