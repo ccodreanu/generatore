@@ -26,3 +26,6 @@ jobs:
 
     - name: Install the Pip package
       run: make install
+
+    - name: Create empty site
+      run: generatore --create TestSite
