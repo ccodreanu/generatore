@@ -26,8 +26,6 @@ class SiteBuilder:
 
         self.config = ConfigManager(dir).read()
 
-        print(self.config)
-
         self.content_dir = os.path.join(dir, content_dir)
         self.output_dir = os.path.join(dir, output_dir)
 
@@ -53,6 +51,9 @@ class SiteBuilder:
         # sort for sitemap
         self.posts.sort(key=lambda post: post.metadata['date'], reverse=True)
 
+        for file in os.listdir(self.posts_output_dir):
+            os.unlink(os.path.join(self.posts_output_dir, file))
+
         [post.write(self.pages) for post in self.posts]
         [page.write(self.pages) for page in self.pages]
 
@@ -61,6 +62,11 @@ class SiteBuilder:
         # Copy over static files
         copy_tree(os.path.join(os.path.dirname(os.path.abspath(__file__)),
                   'templates', 'static'), self.static_output_dir)
+
+        return {
+            'pages': len(self.pages),
+            'posts': len(self.posts)
+        }
 
     def auto_build_site(self):
         content_handler = ContentHandler(self)

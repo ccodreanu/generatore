@@ -8,3 +8,5 @@ build:
 install:
 	@pip3 install dist/generatore-*.whl
 
+dev:
+	@export PYTHONPATH=.
