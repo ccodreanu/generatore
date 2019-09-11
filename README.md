@@ -1,5 +1,7 @@
 # Generatore
 
+[![Actions Status](https://github.com/picofish/generatore/workflows/build/badge.svg)](https://github.com/picofish/generatore/actions)
+
 This is a static website generator written in Python based on Markdown and Jinja2
 
 Install with `pip3 install -r requirements.txt`, `make` and `make install`.
