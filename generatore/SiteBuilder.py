@@ -11,6 +11,7 @@ from generatore.ConfigManager import ConfigManager
 
 
 class ContentHandler(FileSystemEventHandler):
+
     def __init__(self, site):
         self.site = site
 
@@ -20,7 +21,10 @@ class ContentHandler(FileSystemEventHandler):
 
 
 class SiteBuilder:
-    def __init__(self, dir=os.getcwd(), content_dir="content",
+
+    def __init__(self,
+                 dir=os.getcwd(),
+                 content_dir="content",
                  output_dir="output"):
         self.dir = os.path.abspath(dir)
 
@@ -60,19 +64,18 @@ class SiteBuilder:
         self.__generate_index__()
 
         # Copy over static files
-        copy_tree(os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                  'templates', 'static'), self.static_output_dir)
+        copy_tree(
+            os.path.join(
+                os.path.dirname(os.path.abspath(__file__)), 'templates',
+                'static'), self.static_output_dir)
 
-        return {
-            'pages': len(self.pages),
-            'posts': len(self.posts)
-        }
+        return {'pages': len(self.pages), 'posts': len(self.posts)}
 
     def auto_build_site(self):
         content_handler = ContentHandler(self)
         observer = Observer()
-        observer.schedule(content_handler, path=os.path.abspath('content'),
-                          recursive=True)
+        observer.schedule(
+            content_handler, path=os.path.abspath('content'), recursive=True)
         observer.start()
 
         print('Listening for changes...')
@@ -108,15 +111,17 @@ class SiteBuilder:
         return contents
 
     def __generate_index__(self):
-        file_loader = FileSystemLoader(os.path.join(os.path.dirname(
-                        os.path.abspath(__file__)), 'templates'))
+        file_loader = FileSystemLoader(
+            os.path.join(
+                os.path.dirname(os.path.abspath(__file__)), 'templates'))
         env = Environment(loader=file_loader)
 
         template = env.get_template('index.html')
-        o = template.render(config=self.config,
-                            title='Home',
-                            posts=self.posts,
-                            pages=self.pages)
+        o = template.render(
+            config=self.config,
+            title='Home',
+            posts=self.posts,
+            pages=self.pages)
 
         with open(os.path.join(self.output_dir, 'index.html'), 'w') as writer:
             writer.write(o)

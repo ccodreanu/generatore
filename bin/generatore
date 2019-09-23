@@ -14,16 +14,21 @@ from generatore.ArticleBuilder import ArticleBuilder
 from generatore.ConfigManager import ConfigManager
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--build", help="build the site in the output directory",
-                    action="store_true")
-parser.add_argument("--listen",
-                    help="auto-build the site inside the output directory",
-                    action="store_true")
-parser.add_argument("--serve", help="generate content and start a webserver",
-                    action="store_true")
+parser.add_argument(
+    "--build",
+    help="build the site in the output directory",
+    action="store_true")
+parser.add_argument(
+    "--listen",
+    help="auto-build the site inside the output directory",
+    action="store_true")
+parser.add_argument(
+    "--serve",
+    help="generate content and start a webserver",
+    action="store_true")
 parser.add_argument("--create", help="create a new site in DIR", metavar="DIR")
-parser.add_argument("--post", help="create a new post with metadata",
-                    metavar="'Post title'")
+parser.add_argument(
+    "--post", help="create a new post with metadata", metavar="'Post title'")
 args = parser.parse_args()
 
 if (args.build):
