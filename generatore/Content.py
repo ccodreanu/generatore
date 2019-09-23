@@ -7,6 +7,7 @@ from generatore.Utils import slug_creator
 
 
 class Content:
+
     def __init__(self, filename):
         self.__filename = filename
 
@@ -15,8 +16,8 @@ class Content:
     def __parse_content(self):
         with open(self.__filename, 'r') as file_with_content:
             content = file_with_content.read()
-            h = markdown2.markdown(content,
-                                   extras=['metadata', 'fenced-code-blocks'])
+            h = markdown2.markdown(
+                content, extras=['metadata', 'fenced-code-blocks'])
 
         self.metadata = h.metadata
         self.body = h
@@ -36,6 +37,7 @@ class Content:
 
 
 class ValidationError(Exception):
+
     def __init__(self, message):
 
         super().__init__(message)

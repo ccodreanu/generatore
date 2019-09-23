@@ -3,6 +3,7 @@ import os
 
 
 class ConfigManager():
+
     def __init__(self, path=os.getcwd()):
         self.config_path = os.path.join(os.path.abspath(path), 'config')
 
