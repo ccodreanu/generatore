@@ -8,7 +8,8 @@ setuptools.setup(
     version="0.0.1",
     author="Catalin Codreanu",
     author_email="cc.catalincodreanu@gmail.com",
-    description="Generatore is a static website generator written in Python based on Markdown and Jinja2",
+    description=("Generatore is a static website generator written in "
+                 "Python based on Markdown and Jinja2"),
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/picofish/generatore",
