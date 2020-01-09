@@ -1,4 +1,4 @@
-# Generatore - A static site generator.
+# Generatore - A static site generator
 
 [![Actions Status](https://github.com/picofish/generatore/workflows/build/badge.svg)](https://github.com/picofish/generatore/actions)
 
