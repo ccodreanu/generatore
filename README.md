@@ -20,3 +20,5 @@ optional arguments:
   --create DIR         create a new site in DIR
   --post 'Post title'  create a new post with metadata
 ```
+
+Have fun!
